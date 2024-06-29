@@ -14,5 +14,5 @@ Connection Timeout and Access Log Pattern. </li>
 <li> Backup and Restore Configurations </li>
 
 
-Currently it is tested on Windows
+Currently, it is tested on Windows
 
