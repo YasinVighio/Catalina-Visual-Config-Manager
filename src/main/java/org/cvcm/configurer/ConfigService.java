@@ -193,6 +193,7 @@ public class ConfigService {
         configDTO.setAccessLogPattern(serverConfigDTO.getService().getEngine().getHost().getValve().getPattern());
         configDTO.setConnectorPort(serverConfigDTO.getService().getConnectors()[0].getPort());
         configDTO.setConnectionTimeout(serverConfigDTO.getService().getConnectors()[0].getConnectionTimeout());
+        configDTO.setShutdownPort(serverConfigDTO.getPort());
         return configDTO;
     }
 
@@ -221,7 +222,7 @@ public class ConfigService {
     public ServiceResponse runSelectedTomcat(String tomcatDir, String jpdaPort, boolean isDebugMode) {
         ServiceResponse response = new ServiceResponse();
         try {
-            String command = "";
+            String command = "set \"CATALINA_HOME="+tomcatDir + "\" && ";
             if (isDebugMode) {
                 command += " set CATALINA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=" + jpdaPort + " && ";
             }
@@ -254,7 +255,8 @@ public class ConfigService {
     public ServiceResponse stopSelectedTomcat(String tomcatDir) {
         ServiceResponse response = new ServiceResponse();
         try {
-            String command = tomcatDir + "\\bin\\catalina.bat stop";
+            String command = "set \"CATALINA_HOME="+tomcatDir+"\" && ";
+            command+= "\""+ tomcatDir + "\\bin\\catalina.bat\" stop";
 
             ProcessBuilder processBuilder = new ProcessBuilder();
             processBuilder.command("cmd", "/c", command);
@@ -355,6 +357,9 @@ public class ConfigService {
                 }
                 if (newConfig.getAccessLogPattern() != null) {
                     serverConfig.getService().getEngine().getHost().getValve().setPattern(newConfig.getAccessLogPattern());
+                }
+                if (newConfig.getShutdownPort() != null) {
+                    serverConfig.setPort(newConfig.getShutdownPort());
                 }
                 JAXBContext jaxbContext = JAXBContext.newInstance(Server.class);
                 File xmlFile = new File(getTomcatServerFilePath(tomcatDir, false));

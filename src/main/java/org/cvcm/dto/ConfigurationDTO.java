@@ -13,6 +13,7 @@ public class ConfigurationDTO {
     private String catalinaHome;
 
     private Integer connectorPort;
+    private Integer shutdownPort;
     private Integer connectionTimeout;
 
     private String accessLogPattern;

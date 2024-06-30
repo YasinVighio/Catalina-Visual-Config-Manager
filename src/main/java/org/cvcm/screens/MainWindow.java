@@ -66,6 +66,8 @@ public class MainWindow extends JFrame {
         jLabel3 = new javax.swing.JLabel();
         aliasInput = new javax.swing.JTextField();
         setAliasBtn = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        shutDownPortInput = new javax.swing.JTextField();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -151,6 +153,7 @@ public class MainWindow extends JFrame {
         runSelectTomcatBtn.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         runSelectTomcatBtn.setText("Run Selected Tomcat");
         runSelectTomcatBtn.setToolTipText("Run selected tomcat, to run multiple tomcat instances connector port must be changed");
+        runSelectTomcatBtn.setActionCommand("Run Selected Tomcat (To Run multiple tomcat instances connector and shutdown ports must be different)");
         runSelectTomcatBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 runSelectTomcatBtnActionPerformed(evt);
@@ -224,6 +227,11 @@ public class MainWindow extends JFrame {
             }
         });
 
+        jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel4.setText("SHUTDOWN PORT");
+
+        shutDownPortInput.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -269,7 +277,12 @@ public class MainWindow extends JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(catalinaInstallDirs, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(connectionTimeOutInput, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(connectorPortInput, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(connectorPortInput, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(33, 33, 33)
+                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(shutDownPortInput, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(accessLogPtrnInput, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(connectionTimeOutLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 370, Short.MAX_VALUE))
@@ -306,10 +319,12 @@ public class MainWindow extends JFrame {
                     .addComponent(connectorPortInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(connectorPortLbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(jpdaPortInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jpdaPortInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(shutDownPortInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(debugModeChkBox)
-                .addGap(3, 3, 3)
+                .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(connectionTimeOutLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(connectionTimeOutInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -323,13 +338,13 @@ public class MainWindow extends JFrame {
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(loadInstallDirsBtn)
                     .addComponent(loadCachedBtn))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(backupBtn)
                     .addComponent(restoreBkpBtn))
@@ -413,6 +428,7 @@ public class MainWindow extends JFrame {
                 this.accessLogPtrnInput.setText(cfgs.getAccessLogPattern());
                 this.connectionTimeOutInput.setText(String.valueOf(cfgs.getConnectionTimeout()));
                 this.connectorPortInput.setText(String.valueOf(cfgs.getConnectorPort()));
+                this.shutDownPortInput.setText(String.valueOf(cfgs.getShutdownPort()));
             }
             this.messageLbl.setText(response.getMessage());
         } else {
@@ -523,6 +539,10 @@ public class MainWindow extends JFrame {
                 && !configurations.getAccessLogPattern().equals(this.accessLogPtrnInput.getText())){
             configs.setAccessLogPattern(this.accessLogPtrnInput.getText());
         }
+        if(StringUtils.isStringValid(this.shutDownPortInput.getText())
+                && !configurations.getShutdownPort().equals(Integer.valueOf(this.shutDownPortInput.getText()))){
+            configs.setShutdownPort(Integer.valueOf(this.shutDownPortInput.getText()));
+        }
         return configs;
     }
 
@@ -545,6 +565,7 @@ public class MainWindow extends JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -558,6 +579,7 @@ public class MainWindow extends JFrame {
     private javax.swing.JButton saveBtn;
     private javax.swing.JButton setAliasBtn;
     private javax.swing.JButton setSelectTcAsCatHome;
+    private javax.swing.JTextField shutDownPortInput;
     private javax.swing.JButton stopSelectTomcatBtn;
 
     private ConfigurationDTO configurations = null;
