@@ -1,9 +1,11 @@
-package vcc;
+package org.cvcm;
 
-import vcc.configurer.ConfigService;
-import vcc.screens.MainWindow;
+import org.cvcm.configurer.ConfigService;
+import org.cvcm.screens.MainWindow;
+import org.cvcm.utils.AppConfigs;
 
-import javax.swing.*;
+
+import javax.swing.WindowConstants;
 
 /**
  *
@@ -17,11 +19,10 @@ public class VisualCatalinaConfigurer {
 
     public static void initializeApp(){
         ConfigService configService = new ConfigService();
-
         //dependency inj
         MainWindow mainWindow = new MainWindow(configService);
 
-        mainWindow.setTitle("Catalina Config Manager");
+        mainWindow.setTitle(AppConfigs.getAppName());
         mainWindow.setResizable(false);
         mainWindow.setVisible(true);
         mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

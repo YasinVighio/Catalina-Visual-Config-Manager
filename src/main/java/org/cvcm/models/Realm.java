@@ -1,4 +1,4 @@
-package vcc.models;
+package org.cvcm.models;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
@@ -6,17 +6,15 @@ import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import lombok.Data;
 
-;
-
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Service {
+public class Realm {
     @XmlAttribute
-    private String name;
+    private String className;
 
-    @XmlElement(name = "Connector")
-    private Connector[] connectors;
+    @XmlElement(name = "Realm")
+    private Realm nestedRealm;
 
-    @XmlElement(name = "Engine")
-    private Engine engine;
+    @XmlAttribute
+    private String resourceName;
 }

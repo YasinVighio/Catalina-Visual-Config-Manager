@@ -1,4 +1,4 @@
-package vcc.utils;
+package org.cvcm.utils;
 
 public class StringUtils {
     public static boolean isStringValid(String s){

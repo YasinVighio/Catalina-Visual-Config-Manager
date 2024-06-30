@@ -1,20 +1,25 @@
-package vcc.models;
+package org.cvcm.models;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlAttribute;
-import jakarta.xml.bind.annotation.XmlElement;
 import lombok.Data;
 
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Realm {
+public class Valve {
     @XmlAttribute
     private String className;
 
-    @XmlElement(name = "Realm")
-    private Realm nestedRealm;
+    @XmlAttribute
+    private String director;
 
     @XmlAttribute
-    private String resourceName;
+    private String prefix;
+
+    @XmlAttribute
+    private String suffix;
+
+    @XmlAttribute
+    private String pattern;
 }

@@ -1,4 +1,4 @@
-package vcc.models;
+package org.cvcm.models;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;

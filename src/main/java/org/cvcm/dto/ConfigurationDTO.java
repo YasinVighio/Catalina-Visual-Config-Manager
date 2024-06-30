@@ -1,4 +1,4 @@
-package vcc.dto;
+package org.cvcm.dto;
 
 
 import lombok.Data;
