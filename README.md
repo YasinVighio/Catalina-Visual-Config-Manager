@@ -17,5 +17,12 @@ Connection Timeout and Access Log Pattern. </li>
 </ul>
 
 
+To run multiple instances: Connector and Shutdown Ports must be different
+
+If confgiurations are restored while running, then there maybe some problem occur while shutting down the instance.
+
+After saving configurations or restoring server must be restarted
+
+
 Currently, it is tested on Windows
 
