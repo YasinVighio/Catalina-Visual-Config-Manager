@@ -450,9 +450,10 @@ public class MainWindow extends JFrame {
     private void runSelectTomcatBtnActionPerformed(java.awt.event.ActionEvent evt) {
         if(catalinaInstallDirs.getSelectedItem()!=null) {
             String tomcatDir = catalinaInstallDirs.getSelectedItem().toString();
+            String alias = this.aliasInput.getText();
             boolean debugMode = this.debugModeChkBox.isSelected();
             String debugPort = jpdaPortInput.getText();
-            ServiceResponse response = configServiceClient.runSelectedTomcat(tomcatDir, debugPort, debugMode);
+            ServiceResponse response = configServiceClient.runSelectedTomcat(tomcatDir, alias, debugPort, debugMode);
             this.messageLbl.setText(response.getMessage());
         } else {
             this.messageLbl.setText("Error: Tomcat not selected");

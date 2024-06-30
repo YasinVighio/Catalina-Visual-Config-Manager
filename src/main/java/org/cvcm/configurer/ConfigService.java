@@ -219,10 +219,10 @@ public class ConfigService {
         return response;
     }
 
-    public ServiceResponse runSelectedTomcat(String tomcatDir, String jpdaPort, boolean isDebugMode) {
+    public ServiceResponse runSelectedTomcat(String tomcatDir, String alias, String jpdaPort, boolean isDebugMode) {
         ServiceResponse response = new ServiceResponse();
         try {
-            String command = "set \"CATALINA_HOME="+tomcatDir + "\" && ";
+            String command = "set \"CATALINA_HOME="+tomcatDir + "\" && set \"TITLE="+alias+"\" && ";
             if (isDebugMode) {
                 command += " set CATALINA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=" + jpdaPort + " && ";
             }
